@@ -17,15 +17,16 @@
         <spring.boot-version>2.5.2</spring.boot-version>
         <awssdk.version>2.16.97</awssdk.version>
         <jacoco.min.line.cover.ratio>0.10</jacoco.min.line.cover.ratio>
+        <project.scm.id>github</project.scm.id>
     </properties>
     <organization>
         <name>PagoPa</name>
         <url>https://www.pagopa.it</url>
     </organization>
     <scm>
-        <connection>scm:git:git@github.com:pagopa/pn-parent.git</connection>
-        <developerConnection>scm:git:git@github.com:pagopa/pn-parent.git</developerConnection>
-        <url>https://github.com/pagopa/pn-parent</url>
+        <connection>scm:git:git@github.com:pagopa/${artifactId}.git</connection>
+        <developerConnection>scm:git:git@github.com:pagopa/${artifactId}.git</developerConnection>
+        <url>https://github.com/pagopa/${artifactId}</url>
     </scm>
     <issueManagement>
         <system>Jira</system>
