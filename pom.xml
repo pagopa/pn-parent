@@ -13,14 +13,15 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <java.version>11</java.version>
-        
+
         <spring.cloud-version>2020.0.3</spring.cloud-version>
         <spring.boot-version>2.5.2</spring.boot-version>
         <awssdk.version>2.16.97</awssdk.version>
         <logstash.logback.encoder-version>6.6</logstash.logback.encoder-version>
-        
+
         <jacoco.min.line.cover.ratio>0.10</jacoco.min.line.cover.ratio>
         <project.scm.id>github</project.scm.id>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report/jacoco.xml,${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
     <organization>
         <name>PagoPa</name>
@@ -174,6 +175,7 @@
                         <configuration>
                             <dataFile>${project.build.directory}/jacoco-output/jacoco-integration-tests.exec</dataFile>
                             <outputDirectory>${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report</outputDirectory>
+                            <formats>XML</formats>
                         </configuration>
                     </execution>
                     <execution>
@@ -203,6 +205,7 @@
                         <configuration>
                             <dataFile>${project.build.directory}/jacoco-output/merged.exec</dataFile>
                             <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                            <formats>XML</formats>
                         </configuration>
                     </execution>
                     <execution>
