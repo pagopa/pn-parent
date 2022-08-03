@@ -22,6 +22,7 @@
         <jacoco.min.line.cover.ratio>0.10</jacoco.min.line.cover.ratio>
         <project.scm.id>github</project.scm.id>
         <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report/jacoco.xml,${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <maven.wagon.http.retryHandler.count>3</maven.wagon.http.retryHandler.count>
     </properties>
     <organization>
         <name>PagoPa</name>
@@ -233,6 +234,18 @@
                             </rules>
                             <dataFile>${project.build.directory}/jacoco-output/merged.exec</dataFile>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>7.1.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
