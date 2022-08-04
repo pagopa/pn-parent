@@ -15,7 +15,7 @@
         <java.version>11</java.version>
 
         <spring.cloud-version>2020.0.3</spring.cloud-version>
-        <spring.boot-version>2.5.2</spring.boot-version>
+        <spring.boot-version>2.7.2</spring.boot-version>
         <awssdk.version>2.16.97</awssdk.version>
         <logstash.logback.encoder-version>6.6</logstash.logback.encoder-version>
 
