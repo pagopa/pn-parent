@@ -28,7 +28,7 @@
         <url>https://www.pagopa.it</url>
     </organization>
     <scm>
-        <connection>scm:git:https://github.com/pagopa/${project.artifactId}/connection>
+        <connection>scm:git:https://github.com/pagopa/${project.artifactId}</connection>
         <developerConnection>scm:git:https://github.com/pagopa/${project.artifactId}</developerConnection>
         <url>https://github.com/pagopa/${project.artifactId}</url>
       <tag>HEAD</tag>
