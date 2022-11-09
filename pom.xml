@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.pagopa.pn</groupId>
     <artifactId>pn-parent</artifactId>
@@ -19,20 +20,27 @@
         <logstash.logback.encoder-version>6.6</logstash.logback.encoder-version>
 
         <jacoco.min.line.cover.ratio>0.10</jacoco.min.line.cover.ratio>
-        <project.scm.id>github</project.scm.id>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report/jacoco.xml,${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report/jacoco.xml,${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
         <maven.wagon.http.retryHandler.count>3</maven.wagon.http.retryHandler.count>
+
+        <project.scm.id>github</project.scm.id>
+        <git.base>github.com/pagopa/${project.artifactId}</git.base>
+        <git.conn>scm:git:https://${git.base}.git</git.conn>
+        <git.devConn>scm:git:ssh://git@${git.base}.git</git.devConn>
+        <git.url>https://${git.base}</git.url>
     </properties>
     <organization>
         <name>PagoPa</name>
         <url>https://www.pagopa.it</url>
     </organization>
     <scm>
-        <connection>scm:git:https://github.com/pagopa/${project.artifactId}</connection>
-        <developerConnection>scm:git:https://github.com/pagopa/${project.artifactId}</developerConnection>
-        <url>https://github.com/pagopa/${project.artifactId}</url>
-      <tag>HEAD</tag>
-  </scm>
+        <connection>${git.conn}</connection>
+        <developerConnection>${git.devConn}</developerConnection>
+        <url>${git.url}</url>
+        <tag>HEAD</tag>
+    </scm>
     <issueManagement>
         <system>Jira</system>
         <url>https://pagopa.atlassian.net/browse/PN</url>
@@ -158,7 +166,8 @@
                         </goals>
                         <configuration>
                             <dataFile>${project.build.directory}/jacoco-output/jacoco-unit-tests.exec</dataFile>
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report</outputDirectory>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report
+                            </outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -180,7 +189,9 @@
                         </goals>
                         <configuration>
                             <dataFile>${project.build.directory}/jacoco-output/jacoco-integration-tests.exec</dataFile>
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report</outputDirectory>
+                            <outputDirectory>
+                                ${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report
+                            </outputDirectory>
                             <formats>XML</formats>
                         </configuration>
                     </execution>
