@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.pagopa.pn</groupId>
     <artifactId>pn-parent</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>The parent and aggregator for the PN modules</description>
     <url>https://github.com/orgs/pagopa/teams/piattaforma-notifiche</url>
@@ -166,8 +166,7 @@
                         </goals>
                         <configuration>
                             <dataFile>${project.build.directory}/jacoco-output/jacoco-unit-tests.exec</dataFile>
-                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report
-                            </outputDirectory>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -189,9 +188,7 @@
                         </goals>
                         <configuration>
                             <dataFile>${project.build.directory}/jacoco-output/jacoco-integration-tests.exec</dataFile>
-                            <outputDirectory>
-                                ${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report
-                            </outputDirectory>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report</outputDirectory>
                             <formats>XML</formats>
                         </configuration>
                     </execution>
