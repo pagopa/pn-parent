@@ -15,8 +15,10 @@
 
         <spring.cloud-version>2021.0.5</spring.cloud-version>
         <spring.boot-version>2.5.14</spring.boot-version>
-        <awssdk.version>2.16.97</awssdk.version>
+        <awssdk.version>2.17.174</awssdk.version>
         <logstash.logback.encoder-version>6.6</logstash.logback.encoder-version>
+        <awspring.version>2.4.2</awspring.version>
+        <testcontainers.version>1.16.2</testcontainers.version>
 
         <jacoco.min.line.cover.ratio>0.10</jacoco.min.line.cover.ratio>
         <sonar.coverage.jacoco.xmlReportPaths>
@@ -79,6 +81,24 @@
                 <groupId>net.logstash.logback</groupId>
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>${logstash.logback.encoder-version}</version>
+            </dependency>
+
+            <!-- Import dependency for AWS integrated with Spring -->
+            <dependency>
+                <groupId>io.awspring.cloud</groupId>
+                <artifactId>spring-cloud-aws-dependencies</artifactId>
+                <version>${awspring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Import dependency for Testcontainers -->
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
         </dependencies>
