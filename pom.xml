@@ -101,6 +101,13 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- aggiunto in quanto la versione che si porta Spring (1.30) ha diverse vulnerabilità -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.33</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <build>
