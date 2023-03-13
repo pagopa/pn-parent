@@ -20,6 +20,18 @@
         <awspring.version>2.4.2</awspring.version>
         <testcontainers.version>1.17.6</testcontainers.version>
         <pagopa.codegen.version>v01.00.00</pagopa.codegen.version>
+        <pagopa.codegen.noexec>false</pagopa.codegen.noexec>        
+        <pagopa.codegen.script>
+#! /bin/bash -e
+noExec=${1}
+echo "NoExec "$noExec
+if [[ $NoExec = 'true' ]] 
+then
+    echo "skipped codegen execution"
+else
+    docker run --rm -v ${PWD}:/usr/local/app/microsvc --name=pn-codegen ghcr.io/pagopa/pn-codegen:${pagopa.codegen.version}
+fi
+        </pagopa.codegen.script>
 
         <jacoco.min.line.cover.ratio>0.10</jacoco.min.line.cover.ratio>
         <sonar.coverage.jacoco.xmlReportPaths>
@@ -292,10 +304,21 @@
                       <id>init-scripts</id>
                       
                       <configuration>
-                         <target name="codegentarget">
-                            <ant antfile="codegen.xml">
-                                <target name="go"/>
-                            </ant>
+                        <target>
+                            <property name="codegen.script" value="${pagopa.codegen.script}"/>
+                            <property name="codegen.noexec" value="${pagopa.codegen.noexec}"/>
+
+                            <echo message="Genero lo script" />
+                            <echo file="generate-code.sh" >${codegen.script}</echo>
+
+                            <exec executable="chmod" >
+                                <arg value="u+x"/>
+                                <arg value="generate-code.sh"/>
+                            </exec>
+                            
+                            <exec executable="./generate-code.sh">
+                                <arg line="${codegen.noexec}" />
+                            </exec>
                         </target>
                       </configuration>
                       <goals>
