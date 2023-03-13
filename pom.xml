@@ -282,6 +282,28 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>3.0.0-M7</version>
             </plugin>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <version>1.8</version>
+              <executions>
+                  <execution>
+                      <id>init-scripts</id>
+                      
+                      <configuration>
+                         <target name="codegentarget">
+                            <ant antfile="codegen.xml">
+                                <target name="go"/>
+                            </ant>
+                        </target>
+                      </configuration>
+                      <goals>
+                          <goal>run</goal>
+                      </goals>
+                  </execution>
+              </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
