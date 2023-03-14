@@ -20,17 +20,12 @@
         <awspring.version>2.4.2</awspring.version>
         <testcontainers.version>1.17.6</testcontainers.version>
         <pagopa.codegen.version>v01.00.00</pagopa.codegen.version>
-        <pagopa.codegen.noexec>false</pagopa.codegen.noexec>        
+        <pagopa.codegen.exec>false</pagopa.codegen.exec>        
+        <pagopa.codegen.nocopy>false</pagopa.codegen.nocopy>                
         <pagopa.codegen.script>
 #! /bin/bash -e
-noExec=${1}
-echo "NoExec "$noExec
-if [[ $NoExec = 'true' ]] 
-then
-    echo "skipped codegen execution"
-else
-    docker run --rm -v ${PWD}:/usr/local/app/microsvc --name=pn-codegen ghcr.io/pagopa/pn-codegen:${pagopa.codegen.version}
-fi
+tag=$(mvn help:evaluate -Dexpression=pagopa.codegen.version -q -DforceStdout)
+docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pagopa/pn-codegen:$${tag}
         </pagopa.codegen.script>
 
         <jacoco.min.line.cover.ratio>0.10</jacoco.min.line.cover.ratio>
@@ -298,27 +293,29 @@ fi
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-antrun-plugin</artifactId>
-              <version>1.8</version>
+              <version>3.1.0</version>
               <executions>
                   <execution>
                       <id>init-scripts</id>
                       
-                      <configuration>
-                        <target>
+                      <configuration >
+                        <target xmlns:if="ant:if" xmlns:unless="ant:unless">
                             <property name="codegen.script" value="${pagopa.codegen.script}"/>
-                            <property name="codegen.noexec" value="${pagopa.codegen.noexec}"/>
+                            <property name="codegen.exec" value="${pagopa.codegen.exec}"/>
+                            <property name="codegen.nocopy" value="${pagopa.codegen.nocopy}"/>
 
-                            <echo message="Genero lo script" />
-                            <echo file="scripts/openapi/generate-code.sh" >${codegen.script}</echo>
+                            <echo>Skip copy: ${codegen.nocopy}</echo>
+                            <echo>Exec: ${codegen.exec}</echo>
+                            
+                            <echo unless:true="${codegen.nocopy}" message="Genero lo script" />
+                            <echo unless:true="${codegen.nocopy}" file="scripts/openapi/generate-code.sh" >${codegen.script}</echo>
 
-                            <exec executable="chmod" >
+                            <exec executable="chmod" unless:true="${codegen.nocopy}">
                                 <arg value="u+x"/>
                                 <arg value="scripts/openapi/generate-code.sh"/>
                             </exec>
                             
-                            <exec executable="./scripts/openapi/generate-code.sh">
-                                <arg line="${codegen.noexec}" />
-                            </exec>
+                            <exec if:true="${codegen.exec}" executable="./scripts/openapi/generate-code.sh" />
                         </target>
                       </configuration>
                       <goals>
