@@ -19,6 +19,22 @@
         <logstash.logback.encoder-version>7.2</logstash.logback.encoder-version>
         <awspring.version>2.4.2</awspring.version>
         <testcontainers.version>1.17.6</testcontainers.version>
+        <pagopa.codegen.version>v01.00.01</pagopa.codegen.version>
+        <pagopa.codegen.exec>false</pagopa.codegen.exec>        
+        <pagopa.codegen.nocopy>false</pagopa.codegen.nocopy>                
+        <pagopa.codegen.script>
+#! /bin/bash -e
+
+echo "Per maggiori informazioni vedere: https://github.com/pagopa/pn-codegen"
+
+tag=$(mvn help:evaluate -Dexpression=pagopa.codegen.version -q -DforceStdout)
+echo "Tag from pom.xml: ${tag}"
+if [[ ! -z $1 ]]; then
+    tag=$1
+    echo "Tag from command line ${tag}"
+fi
+docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pagopa/pn-codegen:$${tag}
+        </pagopa.codegen.script>
 
         <jacoco.min.line.cover.ratio>0.10</jacoco.min.line.cover.ratio>
         <sonar.coverage.jacoco.xmlReportPaths>
@@ -280,6 +296,41 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>3.0.0-M7</version>
+            </plugin>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <version>3.1.0</version>
+              <executions>
+                  <execution>
+                      <id>init-scripts</id>
+                      
+                      <configuration >
+                        <target xmlns:if="ant:if" xmlns:unless="ant:unless">
+                            <property name="codegen.script" value="${pagopa.codegen.script}"/>
+                            <property name="codegen.exec" value="${pagopa.codegen.exec}"/>
+                            <property name="codegen.nocopy" value="${pagopa.codegen.nocopy}"/>
+
+                            <echo>Skip copy: ${codegen.nocopy}</echo>
+                            <echo>Exec: ${codegen.exec}</echo>
+                            
+                            <echo unless:true="${codegen.nocopy}" message="Genero lo script" />
+                            <echo unless:true="${codegen.nocopy}" file="scripts/openapi/generate-code.sh" >${codegen.script}</echo>
+
+                            <exec executable="chmod" unless:true="${codegen.nocopy}">
+                                <arg value="u+x"/>
+                                <arg value="scripts/openapi/generate-code.sh"/>
+                            </exec>
+                            
+                            <exec if:true="${codegen.exec}" executable="./scripts/openapi/generate-code.sh" />
+                        </target>
+                      </configuration>
+                      <goals>
+                          <goal>run</goal>
+                      </goals>
+                  </execution>
+              </executions>
             </plugin>
         </plugins>
     </build>
