@@ -19,7 +19,7 @@
         <logstash.logback.encoder-version>7.2</logstash.logback.encoder-version>
         <awspring.version>2.4.2</awspring.version>
         <testcontainers.version>1.17.6</testcontainers.version>
-        <pagopa.codegen.version>v01.00.01</pagopa.codegen.version>
+        <pagopa.codegen.version>v01.00.02</pagopa.codegen.version>
         <pagopa.codegen.exec>false</pagopa.codegen.exec>        
         <pagopa.codegen.nocopy>false</pagopa.codegen.nocopy>                
         <pagopa.codegen.script>
@@ -316,14 +316,14 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                             <echo>Exec: ${codegen.exec}</echo>
                             
                             <echo unless:true="${codegen.nocopy}" message="Genero lo script" />
-                            <echo unless:true="${codegen.nocopy}" file="scripts/openapi/generate-code.sh" >${codegen.script}</echo>
+                            <echo unless:true="${codegen.nocopy}" file="scripts/generate-code.sh" >${codegen.script}</echo>
 
                             <exec executable="chmod" unless:true="${codegen.nocopy}">
                                 <arg value="u+x"/>
-                                <arg value="scripts/openapi/generate-code.sh"/>
+                                <arg value="scripts/generate-code.sh"/>
                             </exec>
                             
-                            <exec if:true="${codegen.exec}" executable="./scripts/openapi/generate-code.sh" />
+                            <exec if:true="${codegen.exec}" executable="./scripts/generate-code.sh" />
                         </target>
                       </configuration>
                       <goals>
