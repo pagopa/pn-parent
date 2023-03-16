@@ -22,7 +22,7 @@
         <pagopa.codegen.version>v01.00.02</pagopa.codegen.version>
         <pagopa.codegen.exec>false</pagopa.codegen.exec>        
         <pagopa.codegen.nocopy>false</pagopa.codegen.nocopy>                
-        <pagopa.codegen.script>
+        <pagopa.codegen.script><![CDATA[
 #! /bin/bash -e
 
 echo "Per maggiori informazioni vedere: https://github.com/pagopa/pn-codegen"
@@ -34,6 +34,7 @@ if [[ ! -z $1 ]]; then
     echo "Tag from command line ${tag}"
 fi
 docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pagopa/pn-codegen:$${tag}
+]]>
         </pagopa.codegen.script>
 
         <jacoco.min.line.cover.ratio>0.10</jacoco.min.line.cover.ratio>
