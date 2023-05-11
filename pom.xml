@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.pagopa.pn</groupId>
     <artifactId>pn-parent</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.0.0</version>
     <packaging>pom</packaging>
     <description>The parent and aggregator for the PN modules</description>
     <url>https://github.com/orgs/pagopa/teams/piattaforma-notifiche</url>
@@ -57,7 +57,7 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
         <connection>${git.conn}</connection>
         <developerConnection>${git.devConn}</developerConnection>
         <url>${git.url}</url>
-        <tag>v1.0.0</tag>
+        <tag>v2.0.0</tag>
     </scm>
     <issueManagement>
         <system>Jira</system>
@@ -307,21 +307,21 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                   <execution>
                       <id>init-scripts</id>
                       
-                      <configuration >
+                      <configuration>
                         <target xmlns:if="ant:if" xmlns:unless="ant:unless">
-                            <property name="codegen.script" value="${pagopa.codegen.script}"/>
-                            <property name="codegen.exec" value="${pagopa.codegen.exec}"/>
-                            <property name="codegen.nocopy" value="${pagopa.codegen.nocopy}"/>
+                            <property name="codegen.script" value="${pagopa.codegen.script}" />
+                            <property name="codegen.exec" value="${pagopa.codegen.exec}" />
+                            <property name="codegen.nocopy" value="${pagopa.codegen.nocopy}" />
 
                             <echo>Skip copy: ${codegen.nocopy}</echo>
                             <echo>Exec: ${codegen.exec}</echo>
                             
                             <echo unless:true="${codegen.nocopy}" message="Genero lo script" />
-                            <echo unless:true="${codegen.nocopy}" file="scripts/generate-code.sh" >${codegen.script}</echo>
+                            <echo unless:true="${codegen.nocopy}" file="scripts/generate-code.sh">${codegen.script}</echo>
 
                             <exec executable="chmod" unless:true="${codegen.nocopy}">
-                                <arg value="u+x"/>
-                                <arg value="scripts/generate-code.sh"/>
+                                <arg value="u+x" />
+                                <arg value="scripts/generate-code.sh" />
                             </exec>
                             
                             <exec if:true="${codegen.exec}" executable="./scripts/generate-code.sh" />
