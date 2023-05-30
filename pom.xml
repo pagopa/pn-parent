@@ -19,7 +19,7 @@
         <logstash.logback.encoder-version>7.2</logstash.logback.encoder-version>
         <awspring.version>2.4.2</awspring.version>
         <testcontainers.version>1.17.6</testcontainers.version>
-        <pagopa.codegen.version>v01.02.01</pagopa.codegen.version>
+        <pagopa.codegen.version>v01.02.02</pagopa.codegen.version>
         <pagopa.codegen.exec>false</pagopa.codegen.exec>        
         <pagopa.codegen.nocopy>false</pagopa.codegen.nocopy>                
         <pagopa.codegen.script><![CDATA[
