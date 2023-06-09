@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.pagopa.pn</groupId>
     <artifactId>pn-parent</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
     <packaging>pom</packaging>
     <description>The parent and aggregator for the PN modules</description>
     <url>https://github.com/orgs/pagopa/teams/piattaforma-notifiche</url>
@@ -19,7 +19,7 @@
         <logstash.logback.encoder-version>7.2</logstash.logback.encoder-version>
         <awspring.version>2.4.2</awspring.version>
         <testcontainers.version>1.17.6</testcontainers.version>
-        <pagopa.codegen.version>v01.02.01</pagopa.codegen.version>
+        <pagopa.codegen.version>v01.02.04</pagopa.codegen.version>
         <pagopa.codegen.exec>false</pagopa.codegen.exec>        
         <pagopa.codegen.nocopy>false</pagopa.codegen.nocopy>                
         <pagopa.codegen.script><![CDATA[
@@ -57,7 +57,7 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
         <connection>${git.conn}</connection>
         <developerConnection>${git.devConn}</developerConnection>
         <url>${git.url}</url>
-        <tag>v2.0.0</tag>
+        <tag>v2.1.0</tag>
     </scm>
     <issueManagement>
         <system>Jira</system>
