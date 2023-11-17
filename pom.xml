@@ -17,7 +17,7 @@
         <spring.boot-version>2.7.7</spring.boot-version>
         <awssdk.version>2.18.3</awssdk.version>
         <logstash.logback.encoder-version>7.2</logstash.logback.encoder-version>
-        <awspring.version>2.4.2</awspring.version>
+        <awspring.version>2.4.4</awspring.version>
         <testcontainers.version>1.17.6</testcontainers.version>
         <pagopa.codegen.version>v01.03.00</pagopa.codegen.version>
         <pagopa.codegen.exec>false</pagopa.codegen.exec>        
