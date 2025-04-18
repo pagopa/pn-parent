@@ -18,7 +18,7 @@
         <awssdk.version>2.18.3</awssdk.version>
         <logstash.logback.encoder-version>7.2</logstash.logback.encoder-version>
         <awspring.version>3.3.0</awspring.version>
-        <testcontainers.version>1.17.6</testcontainers.version>
+        <testcontainers.version>1.20.6</testcontainers.version>
         <pagopa.codegen.version>v01.03.00</pagopa.codegen.version>
         <pagopa.codegen.exec>false</pagopa.codegen.exec>        
         <pagopa.codegen.nocopy>false</pagopa.codegen.nocopy>                
@@ -116,12 +116,6 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                 <version>${testcontainers.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>io.awspring.cloud</groupId>
-                <artifactId>spring-cloud-aws-starter-sqs</artifactId>
-                <version>${awspring.version}</version>
             </dependency>
 
         </dependencies>
