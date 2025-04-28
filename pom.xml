@@ -21,7 +21,9 @@
         <testcontainers.version>1.20.6</testcontainers.version>
         <pagopa.codegen.version>v01.03.00</pagopa.codegen.version>
         <pagopa.codegen.exec>false</pagopa.codegen.exec>        
-        <pagopa.codegen.nocopy>false</pagopa.codegen.nocopy>                
+        <pagopa.codegen.nocopy>false</pagopa.codegen.nocopy>
+        <ecr-username></ecr-username>
+        <ecr-token></ecr-token>
         <pagopa.codegen.script><![CDATA[
 #! /bin/bash -e
 
@@ -128,7 +130,7 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                 <configuration>
                     <docker>
                         <builderRegistry>
-                            <username>AWS</username>
+                            <username>${ecr-username}</username>
                             <password>${ecr-token}</password>
                         </builderRegistry>
                     </docker>
