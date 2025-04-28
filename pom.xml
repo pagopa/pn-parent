@@ -126,6 +126,12 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <docker>
+                        <builderRegistry>
+                            <username>AWS</username>
+                            <password>${ecr-token}</password>
+                        </builderRegistry>
+                    </docker>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
