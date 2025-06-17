@@ -22,7 +22,7 @@
 
         <spring.cloud-version>2024.0.1</spring.cloud-version>
         <spring-maven-plugin-version>3.4.5</spring-maven-plugin-version>
-        <spring.boot-version>3.4.4</spring.boot-version>
+        <spring-boot-version>3.4.5</spring-boot-version>
         <awssdk.version>2.18.3</awssdk.version>
         <logstash.logback.encoder-version>7.2</logstash.logback.encoder-version>
         <awspring.version>3.3.0</awspring.version>
@@ -80,7 +80,7 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot-version}</version>
+                <version>${spring-boot-version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -130,29 +130,17 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-maven-plugin-version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-maven-plugin-version}</version>
-                <configuration>
-                    <docker>
-                        <builderRegistry>
-                            <username>${ecr-username}</username>
-                            <password>${ecr-token}</password>
-                        </builderRegistry>
-                    </docker>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -347,6 +335,24 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                     <generateGitPropertiesFile>true</generateGitPropertiesFile>
                     <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
                     <commitIdGenerationMode>full</commitIdGenerationMode>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <docker>
+                        <builderRegistry>
+                            <username>${ecr-username}</username>
+                            <password>${ecr-token}</password>
+                        </builderRegistry>
+                    </docker>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
