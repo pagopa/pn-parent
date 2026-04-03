@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.pagopa.pn</groupId>
     <artifactId>pn-parent</artifactId>
-    <version>2.1.2-SPRINGBOOT3-NATIVE</version>
+    <version>2.1.4-SPRINGBOOT3</version>
     <packaging>pom</packaging>
     <description>The parent and aggregator for the PN modules</description>
     <url>https://github.com/orgs/pagopa/teams/piattaforma-notifiche</url>
@@ -27,7 +27,7 @@
         <spring-boot-version>3.4.5</spring-boot-version>
         <awssdk.version>2.18.3</awssdk.version>
         <logstash.logback.encoder-version>7.2</logstash.logback.encoder-version>
-        <awspring.version>3.3.0</awspring.version>
+        <awspring.version>3.4.0</awspring.version>
         <testcontainers.version>1.20.6</testcontainers.version>
         <pagopa.codegen.version>v01.03.00</pagopa.codegen.version>
         <pagopa.codegen.exec>false</pagopa.codegen.exec>        
@@ -86,8 +86,6 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-
 
             <!-- Import dependency from Spring Cloud for kubernetes and stream integrations -->
             <dependency>
@@ -157,6 +155,18 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                 </executions>
                 <configuration>
                     <mainClass>${spring-boot.run.main-class}</mainClass>
+                    <docker>
+                        <builderRegistry>
+                            <username>${ecr-username}</username>
+                            <password>${ecr-token}</password>
+                        </builderRegistry>
+                    </docker>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             </plugins>
@@ -358,24 +368,6 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                     <generateGitPropertiesFile>true</generateGitPropertiesFile>
                     <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
                     <commitIdGenerationMode>full</commitIdGenerationMode>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <docker>
-                        <builderRegistry>
-                            <username>${ecr-username}</username>
-                            <password>${ecr-token}</password>
-                        </builderRegistry>
-                    </docker>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
