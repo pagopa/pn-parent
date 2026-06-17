@@ -29,6 +29,7 @@
         <awspring.version>3.4.0</awspring.version>
         <testcontainers.version>1.20.6</testcontainers.version>
         <pagopa.codegen.version>v01.03.00</pagopa.codegen.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
         <pagopa.codegen.exec>false</pagopa.codegen.exec>        
         <pagopa.codegen.nocopy>false</pagopa.codegen.nocopy>
         <ecr-username></ecr-username>
@@ -120,6 +121,18 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <build>
@@ -162,6 +175,10 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
