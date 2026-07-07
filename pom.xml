@@ -3,30 +3,33 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.pagopa.pn</groupId>
     <artifactId>pn-parent</artifactId>
-    <version>2.2.0-SPRINGBOOT3</version>
+    <version>2.3.0-SPRINGBOOT3</version>
     <packaging>pom</packaging>
     <description>The parent and aggregator for the PN modules</description>
     <url>https://github.com/orgs/pagopa/teams/piattaforma-notifiche</url>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.5</version>
+        <version>3.5.13</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
         <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <bp.jvm.version>${java.version}</bp.jvm.version>
+        <bp.jvm.cds.enabled>false</bp.jvm.cds.enabled>
 
-        <spring.cloud-version>2024.0.1</spring.cloud-version>
+        <spring.cloud-version>2025.0.1</spring.cloud-version>
         <awssdk.version>2.18.3</awssdk.version>
         <logstash.logback.encoder-version>7.2</logstash.logback.encoder-version>
         <awspring.version>3.4.0</awspring.version>
         <testcontainers.version>1.20.6</testcontainers.version>
         <pagopa.codegen.version>v01.03.00</pagopa.codegen.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
         <pagopa.codegen.exec>false</pagopa.codegen.exec>        
         <pagopa.codegen.nocopy>false</pagopa.codegen.nocopy>
         <ecr-username></ecr-username>
@@ -118,6 +121,18 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                 <scope>import</scope>
             </dependency>
 
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <build>
@@ -140,12 +155,34 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
                                 <artifactId>lombok</artifactId>
                             </exclude>
                         </excludes>
+                        <image>
+                            <env>
+                                <BP_JVM_VERSION>${bp.jvm.version}</BP_JVM_VERSION>
+                                <BP_JVM_CDS_ENABLED>${bp.jvm.cds.enabled}</BP_JVM_CDS_ENABLED>
+                            </env>
+                        </image>
                     </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -175,7 +212,7 @@ docker run --rm -v $$(pwd):/usr/local/app/microsvc --name=pn-codegen ghcr.io/pag
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.12</version>
+                <version>0.8.14</version>
                 <configuration>
                     <excludes>
                         <exclude>**/generated/**</exclude>
