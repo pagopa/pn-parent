@@ -23,7 +23,7 @@
         <bp.jvm.version>${java.version}</bp.jvm.version>
         <bp.jvm.cds.enabled>false</bp.jvm.cds.enabled>
 
-        <spring.cloud-version>2024.0.1</spring.cloud-version>
+        <spring.cloud-version>2025.0.1</spring.cloud-version>
         <awssdk.version>2.18.3</awssdk.version>
         <logstash.logback.encoder-version>7.2</logstash.logback.encoder-version>
         <awspring.version>3.4.0</awspring.version>
